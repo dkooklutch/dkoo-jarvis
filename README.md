@@ -12,6 +12,8 @@ The owner—not the model—controls projects, microphone use, networking, and h
 - Git status and diff views
 - Controlled test, lint, and build runner with no arbitrary shell
 - Groq chat provider and command-only Groq STT
+- Bounded Groq agent loop for permission-gated list/read/search/Git tools, enabled only by each project's Cloud Code checkbox
+- Hash-checked, Git-aware atomic file editor with a manual Level-2 review dialog
 - Fish Audio TTS with configurable reference/voice ID
 - Local `hey_jarvis` ONNX wake-word process with socket denial and in-memory ambient audio
 - SQLite tasks, structured project memory, conversation history, and redacted action audit
@@ -111,4 +113,3 @@ The direct `hdiutil` step intentionally avoids Tauri's decorative Finder/AppleSc
 - [Fish Audio text-to-speech API](https://docs.fish.audio/api-reference/endpoint/openapi-v1/text-to-speech)
 - [openWakeWord project and models](https://github.com/dscripka/openWakeWord)
 - [Tauri 2 documentation](https://v2.tauri.app/)
-

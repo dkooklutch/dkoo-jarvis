@@ -39,6 +39,21 @@ impl Default for GroqProvider {
     }
 }
 
+impl GroqProvider {
+    pub async fn agent_turn(
+        &self,
+        key: &str,
+        messages: &[Value],
+        tools: &[Value],
+    ) -> Result<Value> {
+        let response=self.client.post("https://api.groq.com/openai/v1/chat/completions").bearer_auth(key).json(&json!({"model":self.model,"messages":messages,"tools":tools,"tool_choice":"auto","temperature":0.15,"stream":false})).send().await.map_err(provider)?.error_for_status().map_err(provider)?;
+        let body: Value = response.json().await.map_err(provider)?;
+        body.pointer("/choices/0/message")
+            .cloned()
+            .ok_or_else(|| JarvisError::Provider("Groq returned no agent message".into()))
+    }
+}
+
 #[async_trait]
 impl AIProvider for GroqProvider {
     async fn chat(&self, key: &str, messages: &[Value]) -> Result<String> {
